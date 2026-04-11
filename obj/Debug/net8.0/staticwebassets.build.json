@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ISNFEHOI5indyieQcY6WwaoILssFy3kfci2gqEgvwAc=",
+  "Source": "InsuranceClaimsApi",
+  "BasePath": "_content/InsuranceClaimsApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
