@@ -1,9 +1,10 @@
 using System.Reflection;
+using System.Text;
+using Amazon.SQS;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -11,23 +12,75 @@ using InsuranceClaimsApi.AuthRegister;
 using InsuranceClaimsApi.Middleware;
 using InsuranceClaimsApi.Models;
 using InsuranceClaimsApi.Services;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularClient",
-        policy => policy.WithOrigins("http://localhost:4200") // ✅ Allow Angular frontend
-                        .AllowAnyMethod() // ✅ Allow GET, POST, PUT, DELETE
-                        .AllowAnyHeader() // ✅ Allow all headers
-                        .AllowCredentials()); // ✅ Allow authentication cookies
+    options.AddPolicy("AllowAngularClient", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
 });
 
+// Database
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("DefaultConnection is missing from configuration.");
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
+// JWT
+var jwtKey = builder.Configuration["JwtSettings:SecretKey"]
+    ?? throw new InvalidOperationException("JwtSettings:SecretKey is missing from configuration.");
+
+var jwtIssuer = builder.Configuration["JwtSettings:Issuer"]
+    ?? throw new InvalidOperationException("JwtSettings:Issuer is missing from configuration.");
+
+var jwtAudience = builder.Configuration["JwtSettings:Audience"]
+    ?? throw new InvalidOperationException("JwtSettings:Audience is missing from configuration.");
+
+var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtIssuer,
+            ValidateAudience = true,
+            ValidAudience = jwtAudience,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = signingKey,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+// AWS SQS
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+builder.Services.AddAWSService<IAmazonSQS>();
+builder.Services.AddScoped<IPolicyEventPublisher, PolicyEventPublisher>();
+
+// Application services
+builder.Services.AddScoped<IPasswordHasher<AuthUser>, PasswordHasher<AuthUser>>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddValidatorsFromAssemblyContaining<AuthRegisterValidator>();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
+
+// Controllers
 builder.Services.AddControllers();
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -38,7 +91,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Enter a valid JWT bearer token."
+        Description = "Enter JWT token like: Bearer {your token}"
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -57,80 +110,12 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-
-// builder.Services.AddApiVersioning(options =>
-// {
-//     options.DefaultApiVersion = new ApiVersion(1, 0); // Set default API version
-//     options.AssumeDefaultVersionWhenUnspecified = true;
-//     options.ReportApiVersions = true;
-// });
-
-// Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-if (string.IsNullOrEmpty(connectionString))
-{
-    throw new Exception("🚨 Connection string is NULL. Check appsettings.json");
-}
-
-// Reduce HTTP client logging noise
+// Logging
 builder.Logging.AddFilter("System.Net.Http.HttpClient", LogLevel.Warning);
 
-builder.Services.AddScoped<IPasswordHasher<AuthUser>, PasswordHasher<AuthUser>>();
-//builder.Services.AddScoped<ICustomIndicatorsService, CustomIndicatorsService>();
-builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
-//builder.Services.AddScoped<ICacheDailyAtrService, CacheDailyAtrService>();
-builder.Services.AddValidatorsFromAssemblyContaining<AuthRegisterValidator>();
-builder.Services.AddHttpContextAccessor();
-
-var jwtKey = builder.Configuration["JwtSettings:SecretKey"]
-    ?? throw new InvalidOperationException("JwtSettings:SecretKey is missing from configuration.");
-
-var jwtIssuer = builder.Configuration["JwtSettings:Issuer"] ?? "InsuranceClaimsApi";
-var jwtAudience = builder.Configuration["JwtSettings:Audience"] ?? "InsuranceClaimsApiUsers";
-var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtIssuer,
-            ValidAudience = jwtAudience,
-            IssuerSigningKey = signingKey,
-            ClockSkew = TimeSpan.Zero
-        };
-    });
-
-builder.Services.AddAuthorization();
-
-builder.Services.AddMemoryCache();
-
-// var connectionString1 = builder.Configuration.GetValue<string>("Redis:ConnectionString")
-//     ?? throw new InvalidOperationException("Redis connection string is missing from configuration.");
-
-
-// builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-// {
-//     return ConnectionMultiplexer.Connect(redisConnectionString);
-// });
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-
 var app = builder.Build();
-app.UseCors("AllowAngularClient");
 
-// Configure the HTTP request pipeline.
+// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -138,10 +123,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAngularClient");
+
 app.UseAuthentication();
 app.UseMiddleware<RequestAuditMiddleware>();
 app.UseAuthorization();
-app.MapControllers();
 
+app.MapControllers();
 
 app.Run();

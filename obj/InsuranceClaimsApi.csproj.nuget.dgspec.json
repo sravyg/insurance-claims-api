@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj": {}
+    "C:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj": {}
   },
   "projects": {
-    "c:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj": {
+    "C:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj",
+        "projectUniqueName": "C:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj",
         "projectName": "InsuranceClaimsApi",
-        "projectPath": "c:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj",
+        "projectPath": "C:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj",
         "packagesPath": "C:\\Users\\gurra\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\obj\\",
+        "outputPath": "C:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gurra\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,17 +46,41 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AWSSDK.Extensions.NETCore.Setup": {
+              "target": "Package",
+              "version": "[4.0.3.33, )"
+            },
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[4.0.2.25, )"
+            },
+            "Amazon.Lambda.SQSEvents": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
+            "Amazon.Lambda.Serialization.SystemTextJson": {
+              "target": "Package",
+              "version": "[2.4.5, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.72, )"
+            },
             "FluentValidation": {
               "target": "Package",
-              "version": "[11.9.0, )"
+              "version": "[12.1.1, )"
             },
             "FluentValidation.AspNetCore": {
               "target": "Package",
               "version": "[11.3.0, )"
             },
-            "MediatR": {
+            "FluentValidation.DependencyInjectionExtensions": {
               "target": "Package",
               "version": "[12.1.1, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[14.1.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -75,6 +99,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.11, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[10.0.2, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

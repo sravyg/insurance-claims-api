@@ -1,10 +1,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceClaimsApi.AuthLogin;
 
 [ApiController]
 [Route("api/v1/auth:login")]
+[AllowAnonymous]
 public class AuthLoginController : Controller
 {
     private readonly IMediator _mediator;

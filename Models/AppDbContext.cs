@@ -17,10 +17,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<AuthUser> AuthUsers { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres-sravani");
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AuthUser>(entity =>
         {
@@ -31,8 +28,41 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.LastUpdateDt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<Policy>(entity =>
+        {
+            entity.ToTable("policy");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.PolicyNumber).HasColumnName("policy_number");
+            entity.Property(e => e.CustomerName).HasColumnName("customer_name");
+            entity.Property(e => e.PolicyType).HasColumnName("policy_type");
+            entity.Property(e => e.CoverageAmount).HasColumnName("coverage_amount");
+            entity.Property(e => e.PremiumAmount).HasColumnName("premium_amount");
+            entity.Property(e => e.StartDate).HasColumnName("start_date");
+            entity.Property(e => e.EndDate).HasColumnName("end_date");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.CreateDt)
+                .HasColumnName("create_dt")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
+    //Policy Register
+    public virtual DbSet<Policy> Policies { get; set; }
+
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+        
+
+    //     OnModelCreatingPartial(modelBuilder);
+    // }
+
+    // partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

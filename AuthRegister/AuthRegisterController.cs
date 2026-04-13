@@ -1,10 +1,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceClaimsApi.AuthRegister;
 
 [ApiController]
 [Route("api/v1/auth:register")]
+[AllowAnonymous]
 public class AuthRegisterController : Controller
 {
     private readonly IMediator _mediator;
