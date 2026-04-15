@@ -122,3 +122,8 @@ c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\ne
 c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
 c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\net8.0\AWSSDK.Core.dll
+c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\net8.0\AWSSDK.Extensions.NETCore.Setup.dll
+c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\net8.0\AWSSDK.SQS.dll
+c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+c:\Users\gurra\Downloads\Training\Source\Backend\InsuranceClaimsApi\obj\Debug\net8.0\InsuranceClaimsApi.sourcelink.json
