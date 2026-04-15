@@ -10,6 +10,9 @@
         "dependencies": {
           "AWSSDK.Extensions.NETCore.Setup": "4.0.3.33",
           "AWSSDK.SQS": "4.0.2.25",
+          "Amazon.Lambda.SQSEvents": "2.2.1",
+          "Amazon.Lambda.Serialization.SystemTextJson": "2.4.5",
+          "Dapper": "2.1.72",
           "FluentValidation": "12.1.1",
           "FluentValidation.AspNetCore": "11.3.0",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
@@ -18,12 +21,40 @@
           "Microsoft.AspNetCore.OpenApi": "8.0.10",
           "Microsoft.EntityFrameworkCore": "8.0.11",
           "Microsoft.EntityFrameworkCore.Design": "8.0.11",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
+          "Npgsql": "8.0.8",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.8",
           "Swashbuckle.AspNetCore": "6.6.2",
           "System.IdentityModel.Tokens.Jwt": "8.17.0"
         },
         "runtime": {
           "InsuranceClaimsApi.dll": {}
+        }
+      },
+      "Amazon.Lambda.Core/2.8.0": {
+        "runtime": {
+          "lib/net8.0/Amazon.Lambda.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Amazon.Lambda.Serialization.SystemTextJson/2.4.5": {
+        "dependencies": {
+          "Amazon.Lambda.Core": "2.8.0"
+        },
+        "runtime": {
+          "lib/net8.0/Amazon.Lambda.Serialization.SystemTextJson.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Amazon.Lambda.SQSEvents/2.2.1": {
+        "runtime": {
+          "lib/net8.0/Amazon.Lambda.SQSEvents.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "AWSSDK.Core/4.0.3.29": {
@@ -56,6 +87,14 @@
           "lib/net8.0/AWSSDK.SQS.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.0.2.25"
+          }
+        }
+      },
+      "Dapper/2.1.72": {
+        "runtime": {
+          "lib/net8.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.72.10375"
           }
         }
       },
@@ -598,28 +637,28 @@
           }
         }
       },
-      "Npgsql/8.0.3": {
+      "Npgsql/8.0.8": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "10.0.0"
         },
         "runtime": {
           "lib/net8.0/Npgsql.dll": {
-            "assemblyVersion": "8.0.3.0",
-            "fileVersion": "8.0.3.0"
+            "assemblyVersion": "8.0.8.0",
+            "fileVersion": "8.0.8.0"
           }
         }
       },
-      "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.4": {
+      "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.8": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "8.0.11",
           "Microsoft.EntityFrameworkCore.Abstractions": "8.0.11",
           "Microsoft.EntityFrameworkCore.Relational": "8.0.11",
-          "Npgsql": "8.0.3"
+          "Npgsql": "8.0.8"
         },
         "runtime": {
           "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
-            "assemblyVersion": "8.0.4.0",
-            "fileVersion": "8.0.4.0"
+            "assemblyVersion": "8.0.8.0",
+            "fileVersion": "8.0.8.0"
           }
         }
       },
@@ -775,6 +814,27 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Amazon.Lambda.Core/2.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mZnqCrLuNvB9T9/bCIcu/7H8HWd3yi6sEDzRE76D9ym06D+CoEfJ/EG4w7FucclvpSXO7ui/MKpzqhEnR2FAVg==",
+      "path": "amazon.lambda.core/2.8.0",
+      "hashPath": "amazon.lambda.core.2.8.0.nupkg.sha512"
+    },
+    "Amazon.Lambda.Serialization.SystemTextJson/2.4.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5A/uFtcGBbRP7yA2dAaG6H67Sb0HKvzy8tscHj8b4QiYsZ3fFykBdfqcYuLgIlTHJIutz6JzF8gOvlYH9/5s7g==",
+      "path": "amazon.lambda.serialization.systemtextjson/2.4.5",
+      "hashPath": "amazon.lambda.serialization.systemtextjson.2.4.5.nupkg.sha512"
+    },
+    "Amazon.Lambda.SQSEvents/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DnDW50+hggx+mQm7uphftCUJqSk9M68Dv+PVqRVd+f3soxYksFk+9QRZHmjBkh3+yG1JPGUPcPBqxOMGcfcA2w==",
+      "path": "amazon.lambda.sqsevents/2.2.1",
+      "hashPath": "amazon.lambda.sqsevents.2.2.1.nupkg.sha512"
+    },
     "AWSSDK.Core/4.0.3.29": {
       "type": "package",
       "serviceable": true,
@@ -795,6 +855,13 @@
       "sha512": "sha512-oYYPNmsFZg+rTKAyX/I1gYn3NTHXsWH1+Tp1H8YN0HalMPwZIDbkm8FTGESJgHjmfq3rdEkXBln96J97JFdB7g==",
       "path": "awssdk.sqs/4.0.2.25",
       "hashPath": "awssdk.sqs.4.0.2.25.nupkg.sha512"
+    },
+    "Dapper/2.1.72": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
+      "path": "dapper/2.1.72",
+      "hashPath": "dapper.2.1.72.nupkg.sha512"
     },
     "FluentValidation/12.1.1": {
       "type": "package",
@@ -1062,19 +1129,19 @@
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
     },
-    "Npgsql/8.0.3": {
+    "Npgsql/8.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6WEmzsQJCZAlUG1pThKg/RmeF6V+I0DmBBBE/8YzpRtEzhyZzKcK7ulMANDm5CkxrALBEC8H+5plxHWtIL7xnA==",
-      "path": "npgsql/8.0.3",
-      "hashPath": "npgsql.8.0.3.nupkg.sha512"
+      "sha512": "sha512-1g7tA1easureueqyS5SqJtojI7FwEdw50UYTh0l576iWZNnyRyAVfFi1bJp4BzO8IwYodP8YCRp6ThNQvvBn8A==",
+      "path": "npgsql/8.0.8",
+      "hashPath": "npgsql.8.0.8.nupkg.sha512"
     },
-    "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.4": {
+    "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/hHd9MqTRVDgIpsToCcxMDxZqla0HAQACiITkq1+L9J2hmHKV6lBAPlauF+dlNSfHpus7rrljWx4nAanKD6qAw==",
-      "path": "npgsql.entityframeworkcore.postgresql/8.0.4",
-      "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512"
+      "sha512": "sha512-D5WWJZJTgZYUmGv66BARXbTlinp2a5f5RueJqGYoHuWJw02J0i2va/RA+8N4A5hLORK5YKMRqXhFWtKsZdrksw==",
+      "path": "npgsql.entityframeworkcore.postgresql/8.0.8",
+      "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.8.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.6.2": {
       "type": "package",

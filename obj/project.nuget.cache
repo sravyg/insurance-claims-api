@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LyTWWxNelt0=",
+  "dgSpecHash": "2n6i9IX+bC4=",
   "success": true,
   "projectFilePath": "C:\\Users\\gurra\\Downloads\\Training\\Source\\Backend\\InsuranceClaimsApi\\InsuranceClaimsApi.csproj",
   "expectedPackageFiles": [
@@ -49,8 +49,8 @@
     "C:\\Users\\gurra\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.17.0\\microsoft.identitymodel.tokens.8.17.0.nupkg.sha512",
     "C:\\Users\\gurra\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
     "C:\\Users\\gurra\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
-    "C:\\Users\\gurra\\.nuget\\packages\\npgsql\\10.0.2\\npgsql.10.0.2.nupkg.sha512",
-    "C:\\Users\\gurra\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.4\\npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
+    "C:\\Users\\gurra\\.nuget\\packages\\npgsql\\8.0.8\\npgsql.8.0.8.nupkg.sha512",
+    "C:\\Users\\gurra\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.8\\npgsql.entityframeworkcore.postgresql.8.0.8.nupkg.sha512",
     "C:\\Users\\gurra\\.nuget\\packages\\swashbuckle.aspnetcore\\6.6.2\\swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "C:\\Users\\gurra\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.6.2\\swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "C:\\Users\\gurra\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.6.2\\swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
